@@ -1,4 +1,4 @@
 /* eslint-disable no-console */
-export const log = (...args: [unknown]): void => {
+export const log = (...args: any[]): void => {
   console.log(...args);
 };
