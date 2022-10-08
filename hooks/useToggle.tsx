@@ -10,7 +10,12 @@ export const useToggle = (
 ): ReturnType => {
   const [value, setValue] = useState(initialValue)
 
-  const toggle = (): void => {
+  const toggle = (val?: BooleanString): void => {
+    if (val) {
+      setValue(val)
+
+      return
+    }
     setValue(v => (v === toggleBy[0] ? toggleBy[1] : toggleBy[0]))
   }
 
