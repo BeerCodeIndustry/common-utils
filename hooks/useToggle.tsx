@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { BooleanString } from '../types'
 
-export interface ReturnType {
-  value: BooleanString
-  toggle: () => void
-}
+export type ReturnType = [BooleanString, () => void]
 
 export const useToggle = (
   initialValue: string | boolean = false,
@@ -22,5 +19,5 @@ export const useToggle = (
       throw new Error('toggleBy doesnt contain initial value')
   }, [initialValue, toggleBy])
 
-  return { value, toggle }
+  return [value, toggle]
 }
