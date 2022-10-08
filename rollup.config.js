@@ -13,7 +13,7 @@ const packageJson = require('./package.json')
 
 const config =  [
   {
-    input: 'index.ts',
+    input: 'index.tsx',
     output: [
       {
         file: packageJson.main,
