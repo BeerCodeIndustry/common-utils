@@ -1,0 +1,1 @@
+export { getFileExt } from './getFileExt'
