@@ -1,17 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { BooleanString } from '../types'
+import { BooleanStringNumber } from '../types'
 
-export type ReturnType = [BooleanString, () => void]
+export type ReturnType = [BooleanStringNumber, ToggleType]
+export type ToggleType = (val?: BooleanStringNumber) => void
 
 export const useToggle = (
-  initialValue: string | boolean = false,
-  toggleBy: [BooleanString, BooleanString] = [false, true],
+  initialValue: BooleanStringNumber = false,
+  toggleBy: [BooleanStringNumber, BooleanStringNumber] = [false, true],
 ): ReturnType => {
-  const [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState<BooleanStringNumber>(initialValue)
 
-  const toggle = (val?: BooleanString): void => {
-    if (val) {
+  const verify = useCallback(
+    (val: BooleanStringNumber) => {
+      if (!toggleBy.includes(val)) {
+        throw new Error('toggleBy doesnt contain value')
+      }
+    },
+    [toggleBy],
+  )
+
+  const toggle = (val?: BooleanStringNumber): void => {
+    if (val !== undefined) {
+      verify(val)
       setValue(val)
 
       return
@@ -20,9 +31,8 @@ export const useToggle = (
   }
 
   useEffect(() => {
-    if (!toggleBy.includes(initialValue))
-      throw new Error('toggleBy doesnt contain initial value')
-  }, [initialValue, toggleBy])
+    verify(initialValue)
+  }, [initialValue, verify])
 
   return [value, toggle]
 }

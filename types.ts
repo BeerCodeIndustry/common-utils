@@ -1,1 +1,1 @@
-export type BooleanString = boolean | string
+export type BooleanStringNumber = boolean | string | number
